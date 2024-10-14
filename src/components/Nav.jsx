@@ -1,11 +1,16 @@
+import { useNavigate } from "react-router-dom";
 const Nav = () => {
+  const navigate = useNavigate();
   return (
     //  write home page UI code here
     <section
       id="Nav"
       className="flex flex-row justify-between items-center p-2  bg-[#0a0b10] w-full"
     >
-      <div className="flex flex-row justify-start items-center ml-5 pl-6">
+      <div
+        onClick={() => navigate("/")}
+        className="flex flex-row justify-start items-center ml-5 pl-6"
+      >
         <img
           src="https://appx-wsb-gcp.akamai.net.in/subject/2023-01-17-0.17044360120951185.jpg"
           alt=""
@@ -31,10 +36,16 @@ const Nav = () => {
           >
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
           </svg>
-          <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground dark:text-neutral-950 hover:bg-primary/90 h-10 px-4 py-2">
+          <button
+            onClick={() => navigate("/login")}
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground dark:text-neutral-950 hover:bg-primary/90 h-10 px-4 py-2"
+          >
             Login
           </button>
-          <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-10 px-4 py-2">
+          <button
+            onClick={() => navigate("/register")}
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-10 px-4 py-2"
+          >
             Join Now
           </button>
         </div>
