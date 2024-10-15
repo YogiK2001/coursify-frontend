@@ -20,7 +20,7 @@ const Register = () => {
             </span>
           </h2>
           <p className="text-lg font-medium tracking-tighter text-primary/75 md:text-xl">
-            Log in to access the platform
+            Sign Up to get Access
           </p>
         </div>
         <div className="flex flex-col gap-8">
@@ -117,7 +117,7 @@ const Register = () => {
             </div>
           </div>
           <button className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8">
-            Login
+            Register
           </button>
         </div>
       </div>
