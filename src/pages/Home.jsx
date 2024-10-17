@@ -1,4 +1,5 @@
 //  implement the home page UI here.
+import { useNavigate } from "react-router-dom";
 
 // compoents imports
 // import Login from "../components/Login";
@@ -7,6 +8,7 @@
 import ImageCarousel from "../components/ImageCarousel";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     //  write home page UI code here
     <section className="dark bg-[#0a0b10] flex flex-col">
@@ -28,13 +30,13 @@ const Home = () => {
           </p>
         </div>
         <div className="flex items-center justify-center gap-2 opacity: 1; will-change: auto; transform: none">
-          <a
+          <button
             target="_blank"
             className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8"
-            href=""
+            onClick={() => navigate("/explore")}
           >
             Explore Courses
-          </a>
+          </button>
           <a
             target="_blank"
             className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground dark:text-neutral-950 hover:bg-primary/90 h-11 rounded-md px-8"
