@@ -1,23 +1,30 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import AdminHome from "./pages/AdminHome";
 import Explore from "./pages/Explore";
-import { Login, Register, Nav, Footer } from "./components";
+import { UserLayout, AdminLayout } from "./layout/layout";
+import { Login, Register, AdminLogin, AdminRegister } from "./components";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route path="/explore" element={<Explore />}></Route>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-      {/* start  writing from here */}
-    </>
+    <BrowserRouter>
+      <Routes>
+        {/* User Routes */}
+        <Route element={<UserLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminHome />} />
+          <Route path="login" element={<AdminLogin />} />
+          <Route path="register" element={<AdminRegister />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
