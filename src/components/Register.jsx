@@ -1,11 +1,41 @@
 import { useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastname] = useState("");
+
+  async function handleUserRegister() {
+    try {
+      const response = await axios.post("http://localhost:3000/user/signup", {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+
+      if (response.statusCode === 403) {
+        toast.error("User Already Registered");
+      }
+      if (response.statusCode === 500) {
+        toast.error("Server Error : 500, Try again later");
+      }
+
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+
+      toast.success("Signup in successfully✅");
+    } catch (error) {
+      console.error(error);
+      toast.error("Invalid username or password.");
+    }
+  }
+
   return (
     <section className="dark bg-[#0a0b10] wrapper relative flex min-h-screen items-center justify-center overflow-hidden antialiased">
       <div
@@ -38,7 +68,7 @@ const Register = () => {
                   id="firstName"
                   placeholder="John"
                   name="firstName"
-                  value={firstname}
+                  value={firstName}
                   onChange={(e) => setFirstname(e.target.value)}
                 />
               </div>
@@ -54,7 +84,7 @@ const Register = () => {
                   id="lastName"
                   placeholder="Doe"
                   name="lastName"
-                  value={lastname}
+                  value={lastName}
                   onChange={(e) => setLastname(e.target.value)}
                 />
               </div>
@@ -116,9 +146,13 @@ const Register = () => {
               </div>
             </div>
           </div>
-          <button className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8">
+          <button
+            className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8"
+            onClick={handleUserRegister}
+          >
             Register
           </button>
+          <ToastContainer />
         </div>
       </div>
     </section>

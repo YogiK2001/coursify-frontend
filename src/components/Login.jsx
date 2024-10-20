@@ -1,8 +1,42 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../context/auth";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const setUserState = useSetRecoilState(userState);
+
+  async function handleUserLogin() {
+    try {
+      const response = await axios.post("http://localhost:3000/user/signin", {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+
+      localStorage.setItem("token", token);
+      setUserState({
+        token: token, // Maintain the object structure
+      });
+      toast.success("Signed in successfully✅");
+
+      setTimeout(() => {
+        navigate("/user/dashboard");
+      }, 2000);
+    } catch (error) {
+      console.error(error);
+      toast.error("Invalid username or password.");
+    }
+  }
+
   return (
     <section className="dark bg-[#0a0b10] wrapper relative flex min-h-screen items-center justify-center overflow-hidden antialiased">
       <div
@@ -79,9 +113,14 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <button className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8">
+          <button
+            className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8
+          "
+            onClick={handleUserLogin}
+          >
             Login
           </button>
+          <ToastContainer />
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 const UserDashboard = () => {
   const navigate = useNavigate();
   return (
-    <div className=" relative flex flex-row mt-20 pt-10 bg-[#0a0b10] justify-between w-full h-[100vh]">
+    <div className=" relative flex flex-row mt-20 pt-5 bg-[#0a0b10] justify-between w-full h-[700px]">
       <div className="w-[20%] md-shadow p-4 rounded-lg">
         <div className="flex flex-col items-center justify-center gap-2">
           <div className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg">

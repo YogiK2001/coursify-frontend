@@ -9,29 +9,32 @@ import {
 } from "./pages";
 import { UserLayout, AdminLayout } from "./layout/layout";
 import { Login, Register, AdminLogin, AdminRegister } from "./components";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* User Routes */}
-        <Route element={<UserLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/courses" element={<UserDashboard />} />
-        </Route>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes>
+          {/* User Routes */}
+          <Route element={<UserLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/user/dashboard" element={<UserDashboard />} />
+          </Route>
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminHome />} />
-          <Route path="login" element={<AdminLogin />} />
-          <Route path="register" element={<AdminRegister />} />
-          <Route path="course" element={<AdminDashboard />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminHome />} />
+            <Route path="login" element={<AdminLogin />} />
+            <Route path="register" element={<AdminRegister />} />
+            <Route path="course" element={<AdminDashboard />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 
