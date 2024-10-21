@@ -1,22 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Courses } from "../components";
+import Purchases from "../components/Purchases";
+import Explore from "../pages/Explore";
+
 const UserDashboard = () => {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("courses");
   return (
     <div className=" relative flex flex-row mt-20 pt-5 bg-[#0a0b10] justify-between w-full h-[700px]">
-      <div className="w-[20%] md-shadow p-4 rounded-lg">
+      <div className="w-[20vw] md-shadow p-4 rounded-lg bg-[#1c1f2d] ">
         <div className="flex flex-col items-center justify-center gap-2">
-          <div className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-3"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-            </svg>
-            <span>Home</span>
-          </div>
-          <div className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg">
+          <div
+            className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg"
+            onClick={() => setActiveTab("courses")}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-3"
@@ -27,7 +25,10 @@ const UserDashboard = () => {
             </svg>
             <span>Your Courses</span>
           </div>
-          <div className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg">
+          <div
+            className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg"
+            onClick={() => setActiveTab("purchases")}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-3"
@@ -38,7 +39,10 @@ const UserDashboard = () => {
             </svg>
             <span>Purchases</span>
           </div>
-          <div className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg">
+          <div
+            className="px-4 py-5 flex justify-start items-start text-gray-300 w-full hover:bg-blue-500 rounded-lg"
+            onClick={() => setActiveTab("explore")}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-3"
@@ -49,12 +53,12 @@ const UserDashboard = () => {
             </svg>
             <span>Explore</span>
           </div>
-          <div className="absolute bottom-0 w-[20%] left-0">
-            <button className=" bg-white w-full py-2 text-center mt-auto cursor-pointer ">
-              Logout
-            </button>
-          </div>
         </div>
+      </div>
+      <div className="flex flex-row justify-center items-center">
+        {activeTab === "courses" && <Courses />}
+        {activeTab === "purchases" && <Purchases />}
+        {activeTab === "explore" && <Explore />}
       </div>
     </div>
   );

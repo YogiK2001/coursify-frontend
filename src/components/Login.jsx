@@ -21,8 +21,12 @@ const Login = () => {
       });
 
       const token = response.data.token;
+      const userId = response.data.userId;
 
-      localStorage.setItem("token", token);
+      localStorage.setItem({
+        token: token,
+        userId: userId,
+      });
       setUserState({
         token: token, // Maintain the object structure
       });
