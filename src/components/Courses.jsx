@@ -39,7 +39,7 @@ const Courses = () => {
             return (
               <div
                 key={course._id}
-                className="flex flex-wrap justify-start dark bg-[#0a0b10]"
+                className="flex xl:flex-row flex-col justify-center dark bg-[#0a0b10]"
               >
                 <Card
                   title={course.title}

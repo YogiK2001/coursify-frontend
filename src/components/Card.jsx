@@ -1,5 +1,38 @@
 /* eslint-disable react/prop-types */
-const Card = ({ title, description, imageURL, price }) => {
+
+import { useRecoilValue } from "recoil";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { isAuthenticatedState } from "../context/auth";
+const Card = ({ courseId, title, description, imageURL, price }) => {
+  const isLoggedIn = useRecoilValue(isAuthenticatedState);
+  const navigate = useNavigate();
+
+  const handleBuyFunction = () => {
+    if (isLoggedIn) {
+      // Redirect to the course page
+      axios
+        .post(
+          "http://localhost:3000/courses/purchases",
+          { courseId: courseId },
+          {
+            headers: {
+              token: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          console.log("Course purchased successfully");
+          toast.success("Course purchased successfully");
+        });
+    } else {
+      navigate("user/login");
+      toast.error("Invalid username or password.");
+    }
+  };
+
   return (
     <div
       className="flex flex-col gap-2 p-3 m-2 rounded-3xl shadow-xl 
@@ -22,6 +55,7 @@ const Card = ({ title, description, imageURL, price }) => {
         className="bg-blue-600 hover:bg-blue-500 transition-colors 
             duration-300 rounded-full p-4 text-white font-medium
             mx-2"
+        onClick={() => handleBuyFunction()}
       >
         View Details
       </button>

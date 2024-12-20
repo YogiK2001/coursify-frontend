@@ -23,10 +23,14 @@ const Login = () => {
       const token = response.data.token;
       const userId = response.data.userId;
 
-      localStorage.setItem({
-        token: token,
-        userId: userId,
-      });
+      // Error while Signin after the Cache is cleared
+      // localStorage.setItem({
+      //   token: token,
+      //   userId: userId,
+      // });
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
       setUserState({
         token: token, // Maintain the object structure
       });
