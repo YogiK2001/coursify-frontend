@@ -1,9 +1,53 @@
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSetRecoilState } from "recoil";
+import { adminState } from "../context/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const setAdminState = useSetRecoilState(adminState);
+
+  async function handleAdminLogin() {
+    try {
+      const response = await axios.post("http://localhost:3000/admin/signin", {
+        email,
+        password,
+      });
+
+      const token = response.data.adminToken;
+      const adminId = response.data.adminId;
+      const adminName = response.data.adminName;
+
+      // Error while Signin after the Cache is cleared
+      // localStorage.setItem({
+      //   token: token,
+      //   userId: userId,
+      // });
+
+      localStorage.setItem("adminToken", token);
+      localStorage.setItem("userId", adminId);
+      localStorage.setItem("adminName", adminName);
+      setAdminState({
+        token: token,
+        adminName: adminName, // Maintain the object structure
+      });
+      toast.success("Signed in successfully✅");
+
+      setTimeout(() => {
+        navigate("/admin/dashboard");
+      }, 2000);
+    } catch (error) {
+      console.error(error);
+      toast.error("Invalid username or password.");
+    }
+  }
+
   return (
     <section className="dark bg-[#100a0a] wrapper relative flex min-h-screen items-center justify-center overflow-hidden antialiased">
       <div
@@ -80,9 +124,13 @@ const AdminLogin = () => {
               </div>
             </div>
           </div>
-          <button className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-red-400 to-red-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8">
+          <button
+            className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-red-400 to-red-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8"
+            onClick={handleAdminLogin}
+          >
             Login
           </button>
+          <ToastContainer />
         </div>
       </div>
     </section>

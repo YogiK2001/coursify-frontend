@@ -30,7 +30,7 @@ function App() {
             <Route index element={<AdminHome />} />
             <Route path="login" element={<AdminLogin />} />
             <Route path="register" element={<AdminRegister />} />
-            <Route path="course" element={<AdminDashboard />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>

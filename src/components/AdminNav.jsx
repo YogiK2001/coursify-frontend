@@ -1,15 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  adminState,
+  isAuthenticatedAdmin,
+  adminNameState,
+} from "../context/auth";
 
 const AdminNav = () => {
   const navigate = useNavigate();
-  const [state, setState] = useState("/admin");
+  const setUserState = useSetRecoilState(adminState);
+  const isAuthenticatedA = useRecoilValue(isAuthenticatedAdmin);
+  const setAdminName = useSetRecoilState(adminNameState);
+  const adminName = useRecoilValue(adminNameState);
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminName");
+    setUserState({
+      AdminToken: null,
+    });
+    setAdminName("");
+    navigate("/admin");
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#100a0a] shadow-md w-full">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-[#100a0a] shadow-md w-full">
       <div className="flex flex-row justify-between items-center p-2 max-w-7xl mx-auto w-full">
         <div
-          onClick={() => navigate("/admin")}
+          onClick={() => navigate("/")}
           className="flex flex-row justify-start items-center ml-5 pl-6 cursor-pointer"
         >
           <img
@@ -37,45 +55,44 @@ const AdminNav = () => {
             >
               <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
             </svg>
-            <button
-              onClick={() => navigate("/admin/login")}
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground dark:text-neutral-950 hover:bg-primary/90 h-10 px-4 py-2"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => navigate("/admin/register")}
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-red-400 to-red-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-10 px-4 py-2"
-            >
-              Join Now
-            </button>
-            <div>
-              {state === "/" ? (
+            {isAuthenticatedA ? (
+              <div className="flex items-center gap-4">
+                <span className="text-white">
+                  Welcome, {adminName || "Admin"}
+                </span>
                 <button
-                  onClick={() => {
-                    navigate("/admin");
-                    setState(() => "/admin");
-                  }}
+                  onClick={handleLogout}
                   className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-red-400 to-red-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-10 px-4 py-2"
                 >
-                  Join as Creator
+                  Logout
                 </button>
-              ) : (
+              </div>
+            ) : (
+              <>
                 <button
-                  onClick={() => {
-                    navigate("/");
-                    setState(() => "/");
-                  }}
+                  onClick={() => navigate("/admin/login")}
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground dark:text-neutral-950 hover:bg-primary/90 h-10 px-4 py-2"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => navigate("/admin/register")}
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-red-400 to-red-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-10 px-4 py-2"
+                >
+                  Join Now
+                </button>
+                <button
+                  onClick={() => navigate("/")}
                   className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-blue-400 to-blue-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-10 px-4 py-2"
                 >
                   Join as Student
                 </button>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 

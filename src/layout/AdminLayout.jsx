@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { AdminNav, Footer } from "../components/index";
 import { Outlet } from "react-router-dom";
 

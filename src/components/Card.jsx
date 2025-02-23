@@ -12,6 +12,7 @@ const Card = ({ courseId, title, description, imageURL, price }) => {
   const handleBuyFunction = () => {
     if (isLoggedIn) {
       // Redirect to the course page
+
       axios
         .post(
           "http://localhost:3000/courses/purchases",
@@ -28,8 +29,10 @@ const Card = ({ courseId, title, description, imageURL, price }) => {
           toast.success("Course purchased successfully");
         });
     } else {
-      navigate("user/login");
-      toast.error("Invalid username or password.");
+      toast.warning("Please Log in First");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     }
   };
 
@@ -39,6 +42,7 @@ const Card = ({ courseId, title, description, imageURL, price }) => {
           bg-opacity-20 backdrop-filter backdrop-blur-lg bg-white/10
           border border-white/20  "
     >
+      <span className="text-gray-500">Course Id: {courseId}</span>
       <div className="rounded-xl overflow-cover p-2 ">
         <img
           src={imageURL}
@@ -59,6 +63,7 @@ const Card = ({ courseId, title, description, imageURL, price }) => {
       >
         View Details
       </button>
+      <ToastContainer />
     </div>
   );
 };

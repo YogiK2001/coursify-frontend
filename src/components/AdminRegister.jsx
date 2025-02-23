@@ -1,11 +1,42 @@
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const AdminRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastname] = useState("");
+  const navigate = useNavigate();
+  async function handleAdminRegister() {
+    try {
+      const response = await axios.post("http://localhost:3000/admin/signup", {
+        email,
+        password,
+        firstName,
+        lastName,
+      });
+
+      if (response.status === 403) {
+        toast.error("You've Already Registered. Try Login");
+      } else if (response.status === 500) {
+        toast.error("Server Error : 500, Try again later");
+      } else {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        toast.success("Signup in successfully✅");
+        setTimeout(() => {
+          navigate("/admin/dashboard");
+        }, 1000);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Invalid username or password.");
+    }
+  }
+
   return (
     <section className="dark bg-[#100a0a] wrapper relative flex min-h-screen items-center justify-center overflow-hidden antialiased">
       <div
@@ -38,7 +69,7 @@ const AdminRegister = () => {
                   id="firstName"
                   placeholder="John"
                   name="firstName"
-                  value={firstname}
+                  value={firstName}
                   onChange={(e) => setFirstname(e.target.value)}
                 />
               </div>
@@ -54,7 +85,7 @@ const AdminRegister = () => {
                   id="lastName"
                   placeholder="Doe"
                   name="lastName"
-                  value={lastname}
+                  value={lastName}
                   onChange={(e) => setLastname(e.target.value)}
                 />
               </div>
@@ -116,9 +147,13 @@ const AdminRegister = () => {
               </div>
             </div>
           </div>
-          <button className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-red-400 to-red-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8">
+          <button
+            className="inline-flex items-center justify-center whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-b from-red-400 to-red-700 text-white font-medium hover:opacity-80 transition-all duration-300 h-11 rounded-md px-8"
+            onClick={handleAdminRegister}
+          >
             Register
           </button>
+          <ToastContainer />
         </div>
       </div>
     </section>
