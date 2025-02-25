@@ -1,7 +1,7 @@
 import { Nav, Footer } from "../components/index";
 import { Outlet } from "react-router-dom";
 
-const userLayout = () => {
+const UserLayout = () => {
   return (
     <>
       <Nav />
@@ -13,4 +13,4 @@ const userLayout = () => {
   );
 };
 
-export default userLayout;
+export default UserLayout;
