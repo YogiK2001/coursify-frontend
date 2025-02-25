@@ -7,7 +7,7 @@ import {
   AdminDashboard,
   UserDashboard,
 } from "./pages";
-import { UserLayout, AdminLayout } from "./layout/layout";
+import { UserLayout, AdminLayout } from "./layout/layout.js";
 import { Login, Register, AdminLogin, AdminRegister } from "./components";
 import { RecoilRoot } from "recoil";
 
