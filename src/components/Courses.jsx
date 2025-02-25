@@ -3,6 +3,7 @@ import { userState, isAuthenticatedState } from "../context/auth";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../components/Card";
+import API_URL from "../config";
 
 const Courses = () => {
   const setUserState = useSetRecoilState(userState);
@@ -14,15 +15,12 @@ const Courses = () => {
       try {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId");
-        const response = await axios.get(
-          "http://localhost:3000/user/purchases",
-          {
-            headers: {
-              token: token,
-              userId: userId,
-            },
-          }
-        );
+        const response = await axios.get(`${API_URL}/user/purchases`, {
+          headers: {
+            token: token,
+            userId: userId,
+          },
+        });
         setData(response.data.coursesData);
       } catch (error) {
         console.error("Error fetching courses:", error);

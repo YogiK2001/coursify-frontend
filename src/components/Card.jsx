@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { isAuthenticatedState } from "../context/auth";
+import API_URL from "../config";
 const Card = ({ courseId, title, description, imageURL, price }) => {
   const isLoggedIn = useRecoilValue(isAuthenticatedState);
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Card = ({ courseId, title, description, imageURL, price }) => {
 
       axios
         .post(
-          "http://localhost:3000/courses/purchases",
+          `${API_URL}/courses/purchases`,
           { courseId: courseId },
           {
             headers: {

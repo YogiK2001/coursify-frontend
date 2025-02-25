@@ -1,4 +1,5 @@
 import axios from "axios";
+import API_URL from "../config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSetRecoilState } from "recoil";
@@ -15,7 +16,7 @@ const AdminLogin = () => {
 
   async function handleAdminLogin() {
     try {
-      const response = await axios.post("http://localhost:3000/admin/signin", {
+      const response = await axios.post(`${API_URL}/admin/signin`, {
         email,
         password,
       });

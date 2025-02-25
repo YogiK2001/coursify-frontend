@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../context/auth";
+import API_URL from "../config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const Login = () => {
 
   async function handleUserLogin() {
     try {
-      const response = await axios.post("http://localhost:3000/user/signin", {
+      const response = await axios.post(`${API_URL}/user/signin`, {
         email,
         password,
       });

@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSetRecoilState } from "recoil";
 import { adminState } from "../context/auth";
 import { useState } from "react";
+import API_URL from "../config";
 
 const Inventory = () => {
   const [title, setTitle] = useState("");
@@ -15,7 +16,7 @@ const Inventory = () => {
   async function handleInventory() {
     try {
       const response = await axios.post(
-        "http://localhost:3000/admin/course",
+        `${API_URL}/admin/course`,
         {
           title,
           description,

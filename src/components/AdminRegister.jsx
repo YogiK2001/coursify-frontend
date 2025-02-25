@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../config";
 const AdminRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +13,7 @@ const AdminRegister = () => {
   const navigate = useNavigate();
   async function handleAdminRegister() {
     try {
-      const response = await axios.post("http://localhost:3000/admin/signup", {
+      const response = await axios.post(`${API_URL}/admin/signup`, {
         email,
         password,
         firstName,

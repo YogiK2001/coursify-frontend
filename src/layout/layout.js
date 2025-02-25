@@ -1,4 +1,4 @@
-import UserLayout from "./userLayout";
+import userLayout from "./userLayout";
 import AdminLayout from "./AdminLayout";
 
-export { UserLayout, AdminLayout };
+export { userLayout, AdminLayout };

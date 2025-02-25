@@ -4,14 +4,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSetRecoilState } from "recoil";
 import { adminState } from "../context/auth";
 import { useState, useEffect } from "react";
-
+import API_URL from "../config";
 const Profile = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function fetchCourses() {
       await axios
-        .get("http://localhost:3000/admin/course/bulk", {
+        .get(`${API_URL}/admin/course/bulk`, {
           headers: {
             token: localStorage.getItem("adminToken"),
           },

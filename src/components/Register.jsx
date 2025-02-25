@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import API_URL from "../config";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ const Register = () => {
 
   async function handleUserRegister() {
     try {
-      const response = await axios.post("http://localhost:3000/user/signup", {
+      const response = await axios.post(`${API_URL}/user/signup`, {
         firstName,
         lastName,
         email,
