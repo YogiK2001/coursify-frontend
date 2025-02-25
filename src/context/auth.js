@@ -16,9 +16,7 @@ export const adminState = atom({
 
 export const adminNameState = atom({
     key: "adminNameState",
-    default: localStorage.getItem('adminName')
-        ? JSON.parse(localStorage.getItem('adminName'))
-        : ""
+    default: localStorage.getItem('adminName') || ""
 });
 
 

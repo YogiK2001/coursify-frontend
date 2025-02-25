@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import { Explore, Inventory } from "./index";
+import { Explore, Inventory, Profile } from "./index";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -61,7 +61,11 @@ const AdminDashboard = () => {
         </div>
       </div>
       <div className="w-full h-full mt-10">
-        {activeTab === "profile" && <div>Profile</div>}
+        {activeTab === "profile" && (
+          <div>
+            <Profile />
+          </div>
+        )}
         {activeTab === "inventory" && (
           <div>
             <Inventory />

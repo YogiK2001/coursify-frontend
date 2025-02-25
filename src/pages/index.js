@@ -4,6 +4,7 @@ import AdminHome from './AdminHome';
 import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
 import Inventory from './Inventory';
+import Profile from './Profile';
 
 export {
     Explore,
@@ -11,5 +12,6 @@ export {
     AdminHome,
     AdminDashboard,
     UserDashboard,
-    Inventory
+    Inventory,
+    Profile
 }
