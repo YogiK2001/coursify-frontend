@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { isAuthenticatedState } from "../context/auth";
 import API_URL from "../config";
-const Card = ({ courseId, title, description, imageURL, price }) => {
+import { useState } from "react";
+const Card = ({ courseId, title, description, imageUrl, myFile, price }) => {
   const isLoggedIn = useRecoilValue(isAuthenticatedState);
+  const [imageError, setImageError] = useState(false);
   const navigate = useNavigate();
 
   const handleBuyFunction = () => {
@@ -37,6 +39,22 @@ const Card = ({ courseId, title, description, imageURL, price }) => {
     }
   };
 
+  const getImageSource = () => {
+    if (imageError) {
+      return "https://via.placeholder.com/400x300?text=No+Image+Available"; // Fallback image
+    }
+
+    // Try each possible image field, in order of preference
+    if (myFile) {
+      return myFile;
+    } else if (imageUrl) {
+      return imageUrl;
+    }
+
+    // If no image is found, use a placeholder
+    return "https://via.placeholder.com/400x300?text=No+Image";
+  };
+
   return (
     <div
       className="flex flex-col gap-2 p-3 m-2 rounded-3xl shadow-xl 
@@ -46,11 +64,12 @@ const Card = ({ courseId, title, description, imageURL, price }) => {
       <span className="text-gray-500">Course Id: {courseId}</span>
       <div className="rounded-xl overflow-cover p-2 ">
         <img
-          src={imageURL}
+          src={getImageSource()}
           alt="course image"
           height={400}
           width={400}
           className="rounded-xl h-[300px] w-[456px] object-center object-cover "
+          onError={() => setImageError(true)}
         />
       </div>
       <h3 className="text-white/90 text-xl font-semibold px-2">{title}</h3>

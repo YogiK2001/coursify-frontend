@@ -9,7 +9,7 @@ const AdminDashboard = () => {
   return (
     <div className=" flex flex-row mt-20 pt-5 bg-[#0a0b10] justify-between pr-10  w-full h-[700px]">
       <div className="xl:w-[15vw] w-[10] md-shadow p-4 rounded-lg bg-[#1c1f2d] ">
-        <div className="flex flex-col items-center justify-center lg:gap-2">
+        <div className="flex flex-col items-center justify-center lg:gap-2 ">
           <div
             className="px-4 py-5 flex justify-start items-center text-gray-300 w-full hover:bg-red-600 rounded-lg"
             onClick={() => setActiveTab("profile")}
@@ -60,7 +60,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-full mt-10">
+      <div className="w-full h-full">
         {activeTab === "profile" && (
           <div>
             <Profile />

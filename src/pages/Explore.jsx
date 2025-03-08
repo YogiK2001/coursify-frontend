@@ -17,7 +17,7 @@ const Explore = () => {
   }, []);
 
   return (
-    <div className="flex xl:flex-row flex-col mt-20 p-20 bg-[#0a0b10] justify-start  w-full">
+    <div className="flex xl:flex-row flex-wrap flex-col mt-20 p-20 bg-[#0a0b10] justify-start  w-full">
       {data.map((course) => {
         return (
           <div
@@ -28,7 +28,8 @@ const Explore = () => {
               courseId={course._id}
               title={course.title}
               description={course.description}
-              imageURL={course.imageUrl}
+              imageUrl={course.imageUrl}
+              myFile={course.myFile}
               price={course.price}
             />
           </div>
